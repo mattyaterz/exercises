@@ -108,7 +108,7 @@ class AsciiSpiral {
         Direction currentDirection = LEFT
 
         for ( int value = matrix.length ** 2 - 1; value >= 0; value-- ) {
-            // for the majority of cases where the matrix required is larger than spiral length, insert null as filler
+            // for the cases where the matrix required is larger than spiral length, insert null as filler
             matrix[ y ][ x ] = value > maxValue ? null : value
 
             switch ( currentDirection ) {
@@ -121,19 +121,19 @@ class AsciiSpiral {
                         xBound--
                         // reset the counter
                         xCount = 0
-                        // ensure positive array index by adding length before decrement and modulo
-                        currentDirection = directions[ ( currentDirection.ordinal() + directions.length - 1 ) % directions.length ]
+                        // change direction... dependant on the order of the Direction enumeration
+                        currentDirection = directions[ ( currentDirection.ordinal() + 1 ) % directions.length ]
                     }
                     break
-                case DOWN:
                 case UP:
+                case DOWN:
                     // when you have reached the edge of the matrix (y == 0 || y == matrix.length - 1)
                     // when you have reached a row that contains a previously calculated portion of the spiral
                     if ( ++yCount > yBound ) {
                         // traverse one less row on each vertical pass
                         yBound--
                         yCount = 0
-                        currentDirection = directions[ ( currentDirection.ordinal() + directions.length - 1 ) % directions.length ]
+                        currentDirection = directions[ ( currentDirection.ordinal() + 1 ) % directions.length ]
                     }
                     break
             }
@@ -141,9 +141,9 @@ class AsciiSpiral {
             // increment or decrement your position based on your direction
             switch ( currentDirection ) {
                 case LEFT: x--; break
-                case DOWN: y--; break
+                case DOWN: y++; break
                 case RIGHT: x++; break
-                case UP: y++; break
+                case UP: y--; break
             }
         }
 
